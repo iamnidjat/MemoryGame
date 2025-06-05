@@ -69,17 +69,20 @@ const Statistics = () => {
 
   return (
     <div className={styles.container}>
-      <button className={styles.backButton} onClick={() => navigate(-1)}>
-        {t("Back")}
-      </button>
+      <div className={styles.subContainer}>
+        <button className={styles.backButton} onClick={() => navigate(-1)}>
+          {t("Back")}
+        </button>
 
-      <button
-        className={styles.backButton}
-        disabled={!hasStats}
-        onClick={resetStats}
-      >
-        {t("Reset")}
-      </button>
+        <button
+          className={styles.resetButton}
+          disabled={!hasStats}
+          onClick={resetStats}
+        >
+          {t("Reset")}
+        </button>
+      </div>
+
       <div className={styles.filterSection}>
         <button
           className={styles.filterButton}
@@ -144,7 +147,7 @@ const Statistics = () => {
       </div>
       <h2 className={styles.heading}>{t("Your Statistics")}</h2>
       {sortedStats.length === 0 ? (
-        <p>{t("No statistics available")}</p>
+        <p className={styles.unavailableStat}>{t("No statistics available")}</p>
       ) : (
         <table className={styles.table}>
           <thead>
@@ -161,7 +164,9 @@ const Statistics = () => {
                 <td>{new Date(stat.date).toLocaleString()}</td>
                 <td>{stat.score}</td>
                 <td>{stat.difficulty}</td>
-                <td>{stat.time} {t("seconds")}</td>
+                <td>
+                  {stat.time} {t("seconds")}
+                </td>
               </tr>
             ))}
           </tbody>

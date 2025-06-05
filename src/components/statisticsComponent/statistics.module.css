@@ -8,6 +8,12 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
 }
 
+.subContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .heading {
   text-align: center;
   margin-bottom: 1.5rem;
@@ -43,6 +49,10 @@
   color: #333;
 }
 
+.unavailableStat {
+  text-align: center;
+}
+
 .filterSection {
   display: flex;
   flex-wrap: wrap;
@@ -66,7 +76,8 @@
   background: linear-gradient(135deg, #0072ff, #0059b3);
 }
 
-.backButton {
+.backButton,
+.resetButton {
   margin-bottom: 1rem;
   background-color: transparent;
   border: 2px solid #2575fc;
@@ -77,7 +88,8 @@
   transition: all 0.3s ease;
 }
 
-.backButton:hover {
+.backButton:hover,
+.resetButton:hover {
   background-color: #2575fc;
   color: white;
 }

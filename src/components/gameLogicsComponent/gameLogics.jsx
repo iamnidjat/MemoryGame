@@ -195,13 +195,11 @@ const GameLogics = () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>{t("Memory Game")}</h1>
-      <button
-        onClick={() => {
-          navigate("/");
-        }}
-      >
-        {t("Back")}
-      </button>
+      <div className={styles.backButtonContainer}>
+        <button className={styles.backButton} onClick={() => navigate("/")}>
+          {t("Back")}
+        </button>
+      </div>
       <div className={styles.buttons}>
         <button
           className={styles.button}
