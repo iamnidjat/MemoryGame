@@ -1,0 +1,83 @@
+/* Statistics.module.css */
+.container {
+  padding: 2rem;
+  background: #f4f4f4;
+  border-radius: 16px;
+  max-width: 800px;
+  margin: 40px auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.table th,
+.table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.table th {
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: white;
+  font-weight: 600;
+}
+
+.table tbody tr:hover {
+  background-color: #f0f8ff;
+}
+
+.table td {
+  color: #333;
+}
+
+.filterSection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+}
+
+.filterButton {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.filterButton:hover {
+  background: linear-gradient(135deg, #0072ff, #0059b3);
+}
+
+.backButton {
+  margin-bottom: 1rem;
+  background-color: transparent;
+  border: 2px solid #2575fc;
+  color: #2575fc;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.backButton:hover {
+  background-color: #2575fc;
+  color: white;
+}

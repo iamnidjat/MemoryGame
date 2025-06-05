@@ -1,0 +1,36 @@
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #f0f2f5;
+  color: #555;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 2rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+.code {
+  font-size: 6rem;
+  font-weight: bold;
+  color: #ff6b6b;
+}
+
+.message {
+  margin-top: 1rem;
+  font-size: 1.5rem;
+}
+
+.back {
+  margin-top: 30px;
+  font-size: 1rem;
+  color: #555;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.back:hover {
+  color: #000;
+}
