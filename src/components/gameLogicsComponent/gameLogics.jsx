@@ -17,12 +17,12 @@ const GameLogics = () => {
   const [score, setScore] = useState(0);
   const [timer, setTimer] = useState(0);
   const [isTimerActive, setIsTimerActive] = useState(false);
-  const [difficulty, setDifficulty] = useState("easy"); // Default difficulty
+  const [difficulty, setDifficulty] = useState("easy");
   const [isProcessing, setIsProcessing] = useState(false);
 
   useEffect(() => {
     if (cards.length > 0 && cards.every((card) => card.isFlipped)) {
-      setIsTimerActive(false); // Stop the timer when all cards are flipped
+      setIsTimerActive(false);
       if (gameMode === "challenge") {
         const stats = {
           score: score,
@@ -31,15 +31,12 @@ const GameLogics = () => {
           time: timer,
         };
 
-        // Get existing stats
         const existingStats = JSON.parse(
           localStorage.getItem("gameStats") || "[]"
         );
 
-        // Add the new one
         existingStats.push(stats);
 
-        // Save back to localStorage
         localStorage.setItem("gameStats", JSON.stringify(existingStats));
       }
 
@@ -80,7 +77,6 @@ const GameLogics = () => {
       }, 1000);
     }
 
-    // Cleanup when component unmounts or timer stops
     return () => clearInterval(interval);
   }, [isTimerActive]);
 
@@ -88,7 +84,7 @@ const GameLogics = () => {
     setGameMode(gameMode);
     setIsModalOpen(false);
     setIsTimerActive(true);
-    setTimer(0); // reset timer on new game
+    setTimer(0);
     const cardValues = generateCardValues(2); // Example size
     console.log("Generated card values:", cardValues);
     const shuffled = shuffleArray(cardValues);
@@ -125,36 +121,46 @@ const GameLogics = () => {
 
   const generateCardValues = (size) => {
     const numPairs = (size * size) / 2;
-    const cardValues = [...Array(numPairs).keys()].map((i) => i + 1); // Create pairs [1, 2, ...,]
-    return [...cardValues, ...cardValues]; // Double the values for pairs
+    const cardValues = [...Array(numPairs).keys()].map((i) => i + 1); // creating pairs [1, 2, ...,]
+    return [...cardValues, ...cardValues]; // doubling the values for pairs
   };
 
   const shuffleArray = (array) => {
-    return array.sort(() => Math.random() - 0.5); // Simple shuffle
+    return array.sort(() => Math.random() - 0.5); // simple shuffle
   };
 
   const shuffleCards = () => {
     setIsTimerActive(true);
-    setTimer(0); // reset timer on new game
-    const cardValues = generateCardValues(
-      difficulty === "easy" ? 2 : difficulty === "medium" ? 4 : 8
+    setTimer(0);
+
+    // flipping all cards face-down
+    setCards((prevCards) =>
+      prevCards.map((card) => ({ ...card, isFlipped: false }))
     );
-    const shuffled = shuffleArray(cardValues);
 
-    const structuredCards = shuffled.map((value, index) => ({
-      id: index,
-      value: value,
-      isFlipped: false,
-    }));
+    // waiting for flip animation to complete (e.g., 300ms)
+    setTimeout(() => {
+      const cardValues = generateCardValues(
+        difficulty === "easy" ? 2 : difficulty === "medium" ? 4 : 8
+      );
+      const shuffled = shuffleArray(cardValues);
 
-    setCards(structuredCards);
+      const structuredCards = shuffled.map((value, index) => ({
+        id: index,
+        value: value,
+        isFlipped: false,
+      }));
+
+      // updating cards with shuffled values
+      setCards(structuredCards);
+    }, 300);
   };
 
   const handleCardClick = (card) => {
-    // Don't allow interaction during processing or on already flipped cards
+    // not allowing interaction during processing or on already flipped cards
     if (isProcessing || card.isFlipped || flippedCards.length === 2) return;
 
-    // Flip the selected card
+    // flipping the selected card
     const updatedCards = cards.map((c) =>
       c.id === card.id ? { ...c, isFlipped: true } : c
     );
@@ -163,20 +169,20 @@ const GameLogics = () => {
     const newFlipped = [...flippedCards, card];
     setFlippedCards(newFlipped);
 
-    // If two cards are flipped, check for a match
+    // if two cards are flipped, checking for a match
     if (newFlipped.length === 2) {
       const [first, second] = newFlipped;
       setIsProcessing(true); // Lock further input
 
       if (first.value === second.value) {
-        // It's a match – keep them flipped
+        // it's a match – keeping them flipped
         setScore(score + 1);
         setTimeout(() => {
           setFlippedCards([]);
           setIsProcessing(false);
         }, 1000);
       } else {
-        // Not a match – unflip after delay
+        // not a match – unflipping after delay
         setTimeout(() => {
           setCards((prevCards) =>
             prevCards.map((c) =>
@@ -186,7 +192,7 @@ const GameLogics = () => {
             )
           );
           setFlippedCards([]);
-          setIsProcessing(false); // Unlock input
+          setIsProcessing(false); // unlocking input
         }, 1000);
       }
     }
